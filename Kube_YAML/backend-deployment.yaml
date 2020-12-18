@@ -9,7 +9,6 @@ spec:
   selector:
     matchLabels:
       app: backend
-  strategy: {}
   template:
     metadata:
       labels:
@@ -23,4 +22,16 @@ spec:
           - containerPort: 8080
         envFrom:
         - configMapRef:
-            name: emp-service
+            name: backend-configmap
+        env:
+        - name: MYSQL_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: ROOT_USER_NAME
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: backend-secrets
+              key: ROOT_USER_PASSWORD
+        

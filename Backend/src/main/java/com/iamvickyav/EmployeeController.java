@@ -3,6 +3,7 @@ package com.iamvickyav;
 import com.iamvickyav.model.Employee;
 import com.iamvickyav.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,12 @@ public class EmployeeController {
 
     @Autowired
     private EmpConfig empConfig;
+
+    @Value("${spring.datasource.username}")
+    String dbUserName;
+
+    @Value("${spring.datasource.password}")
+    String dbPassword;
 
     @RequestMapping(value = "/api/employees", method = RequestMethod.GET)
     List<Employee> getAllEmployee(){
@@ -41,6 +48,8 @@ public class EmployeeController {
         map.put("localHostName", localHostName);
         map.put("loopbackAddress", loopbackAddress);
         map.put("loopbackHostName", loopbackHostName);
+        map.put("dbUserName", dbUserName);
+        map.put("dbPassword", dbPassword);
 
         return map;
     }
