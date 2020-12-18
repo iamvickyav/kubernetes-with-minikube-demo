@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: backend-img
+        name: backend-img
+        imagePullPolicy : Never
+        ports:
+          - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: emp-service
